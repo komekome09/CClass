@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>reveal.js - The HTML Presentation Framework</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+                <section>
+                    <h1>C言語講習第2回</h1>
+                </section>
+
+                <section>
+                    <h1>目次</h1>
+                    <ul>
+                        <li>制御構文</li>
+                        <ul>
+                            <li>真と偽</li>
+                            <li>if-else</li>
+                            <li>演算子</li>
+                            <li>for</li>
+                            <li>switch</li>
+                            <li>while</li>
+                        </ul>
+                        <li>変数のスコープ</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <section>
+                        <h1>制御構文とは</h1>
+                    </section>
+                    <section>
+                       <q>命令の実行順序を通常の逐次実行以外の順番に変化させる構文</q> 
+                       <br>
+                       <cite>Wikipedia - 制御構造より</cite>
+                    </section>
+                    <section>
+                        <h1>C言語での制御構文はどうなっているのか</h1>
+                    </section>
+                    <section>
+                        <h1>その前に</h1>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h1>(C言語での)真と偽について</h1>
+                    </section>
+                    <section>
+                        <h1>C言語での真(true)は"0"以外</h1>
+                        <h1>つまり偽は0のみ</h1>
+                    </section>
+                    <section>
+                        <h1>なお論理式(後述)は<br>1が真、0が偽と明確に決められている。</h1>
+                    </section>
+                    <section>
+                        <h1>これを踏まえて</h1>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h1>if 文</h1>
+                    </section>
+                    <section>
+                        <h1>構文</h1>
+                        <pre>
+                            <code>
+                                if( 論理式(1) ){
+                                    処理(1);
+                                }else if( 論理式(2) ){
+                                    処理(2);
+                                }else{
+                                    処理(3);
+                                }
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <h1>どのように処理されるのか</h1>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h1>1. 論理式(1)を評価<br>(真か偽かを判定する)</h1>
+                        <pre>
+                            <code>
+                                if( 論理式(1) ){ &lt;- ここ
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <h2> 2-1. 論理式(1)が真である時</h2>
+                        <h2> 処理(1)を実行して抜ける</h2>
+                        <pre><code>
+                            if( 論理式(1) ){
+                                処理(1); &lt; ここ
+                            }else if
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h2> 2-2. 論理式(1)が偽である時</h2>
+                        <h2> 論理式(2)を評価する</h2>
+                        <pre><code>
+                            }else if( 論理式(2) ){ &lt; ここ
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h2>3-1. 論理式(3)が真である場合</h2>
+                        <h2>処理(2)を実行して抜ける</h2>
+                        <pre><code>
+                            else if( 論理式(2) ){
+                                処理(2); &lt; ここ
+                            }else}
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h2>3-2. 論理式(3)が偽である場合</h2>
+                        <h2>処理(3)を実行して抜ける</h2>
+                        <pre><code>
+                            }else{
+                                処理(3); &lt; ここ
+                            }
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h2>else if文とelseは省略可能</h2>
+                        <h2>この場合、論理式が偽であれば何も処理せずに抜ける
+                    </section>
+                    <section>
+                        <h2>では、論理式とはどういうものなのか</h2>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h1>論理式</h1>
+                    </section>
+                    <section>
+                        <h2>そもそも論理式とは</h2>
+                    </section>
+                    <section>
+                        <h2>論理式:論理演算を実行する式</h2>
+                        <h2>では論理演算とは</h2>
+                    </section>
+                    <section>
+                        <h2>先ほどの真と偽のどちらかのみを対象とした演算<br>(つまり結果が真か偽のみである処理)</h2>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h2>実際の文法</h2>
+                    </section>
+                    <section>
+                    	<h2>比較演算子</h2>
+                    	<table class="tg">
+							  <tr>
+							    <th class="tg-031e">演算子</th>
+							    <th class="tg-031e">数学における記号</th>
+							    <th class="tg-031e">使用例</th>
+							  </tr>
+							  <tr>
+							    <td class="tg-031e">==</td>
+							    <td class="tg-031e">＝</td>
+							    <td class="tg-031e">a == b</td>
+							  </tr>
+							  <tr>
+							    <td class="tg-031e">!=</td>
+							    <td class="tg-031e">≠</td>
+							    <td class="tg-031e">a != b</td>
+							  </tr>
+							  <tr>
+							    <td class="tg-031e">&lt;</td>
+							    <td class="tg-031e">＜</td>
+							    <td class="tg-031e">a &lt; b</td>
+							  </tr>
+							  <tr>
+							    <td class="tg-031e">&lt;=</td>
+							    <td class="tg-031e">≦</td>
+							    <td class="tg-031e">a &lt;= b</td>
+							  </tr>
+							  <tr>
+							    <td class="tg-031e">&gt;</td>
+							    <td class="tg-031e">＞</td>
+							    <td class="tg-031e">a &gt; b</td>
+							  </tr>
+							  <tr>
+							    <td class="tg-031e">&gt;=</td>
+							    <td class="tg-031e">≧</td>
+							    <td class="tg-031e">a &gt;= b</td>
+							  </tr>
+						</table>
+					</section>
+
+					<section>
+						<h2>注意点</h2>
+						<h2>0 &lt; x &lt; 100</h2>
+						<h2>のような書き方はできない</h2>
+						<h2>ではどうすればいいのか</h2>
+					</section>
+					<section>
+						<h2>論理演算子</h2>
+						<table class="tg">
+						  <tr>
+						    <th class="tg-031e">演算子</th>
+						    <th class="tg-031e">数学における記号</th>
+						    <th class="tg-031e">使用例</th>
+						    <th class="tg-031e">備考</th>
+						  </tr>
+						  <tr>
+						    <td class="tg-031e">&amp;&amp;</td>
+						    <td class="tg-031e">∧ (AND)</td>
+						    <td class="tg-031e">0&lt;x&amp;&amp;x&lt;100</td>
+						    <td class="tg-031e"></td>
+						  </tr>
+						  <tr>
+						    <td class="tg-031e">||</td>
+						    <td class="tg-031e">∨ (OR)</td>
+						    <td class="tg-031e">a!=0||b!=0</td>
+						    <td class="tg-031e"></td>
+						  </tr>
+						  <tr>
+						    <td class="tg-031e">!</td>
+						    <td class="tg-031e">￢ (NOT)</td>
+						    <td class="tg-031e">!(a==0&amp;&amp;b==0)</td>
+						    <td class="tg-031e"></td>
+						  </tr>
+						</table>
+					</section>
+					<section>
+						<h2>先程の例は</h2>
+						<pre><code>
+							0 &lt; x &amp;&amp; x &lt; 100
+						</code></pre>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h1>for文</h1>
+					</section>
+					<section>
+						<h2>構文</h2>
+					</section>
+					<section>
+						<pre><code>
+						for(初期処理; 論理式; ループ時処理){
+							処理;
+						}
+						</code></pre>
+					</section>
+					<section>
+						<h2>処理の順番</h2>
+						<ol>
+							<li>初期処理</li>
+							<li>論理式の評価</li>
+							<ul><li>ここで偽であればfor文を抜けます</li></ul>
+							<li>処理</li>
+							<li>ループ時処理</li>
+							<li>2に戻る</li>
+						</ol>
+					</section>
+					<section>
+						<h2>初期処理</h2>
+						<h2>for文が開始される前に行われる処理</h2>
+						<h2>具体的にはここで変数の初期化などを行う</h2>
+					</section>
+					<section>
+						<h1>注意</h1>
+						<h2>(c99以前での)C言語では</h2>
+						<pre><code>
+						for(int i = 0; i &lt; 100; i+)+
+						</code></pre>
+						<h2>とは書けません</h2>
+					</section>
+					<section>
+						<h2>処理</h2>
+						<h2>好きな処理を書きましょう</h2>
+					</section>
+					<section>
+						<h2>ループ時処理</h2>
+						<h2>処理を行なった後に行う処理</h2>
+						<h2>値を順に増やしていきたいときなどはここに処理を書く</h2>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>途中で抜けたいときはどうするの</h2>
+					</section>
+					<section>
+						<h2>-&gt; break文を使いましょう</h2>
+						<h2>Sample Code</h2>
+						<pre><code>
+						for(i = 0; i &lt; 100; i++){
+							if(i == 2) break;
+							printf("%d ", i);
+						}
+						</code></pre>
+					</section>
+					<section>
+						<h2>実行結果</h2>
+						<pre><code>
+						0 1 
+						</code></pre>
+						<h4>i = 2でbreakでif文の条件を満たして抜けているのでこれ以降の処理は行われない</h4>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>じゃあ途中で飛ばしたいはどうするの</h2>
+					</section>
+					<section>
+						<h2>-&gt; continue文を使いましょう</h2>
+						<h2>Sample Code</h2>
+						<pre><code>
+						for(int i = 0; i &lt; 5; i++){
+							if(i % 2 == 0) continue;
+							printf("%d ", i);
+						}
+						</code></pre>
+					</section>
+					<section>
+						<h2>実行結果</h2>
+						<pre><code>
+						1 3
+						</code></pre>
+						<h2>i % 2 == 0、つまりiが偶数の時に表示処理を飛ばしたということになる</h2>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h1>switch 文</h1>
+					</section>
+					<section>
+						<h2>構文</h2>
+						<pre><code>
+						while(論理式){
+							処理1;
+						}
+						</code></pre>
+					</section>
+					<section>
+						<h2>処理の流れ</h2>
+						<ol>
+							<li>論理式を評価する</li>
+							<ul><li>偽であればループを抜ける</li></ul>
+							<li>処理1を実行する</li>
+							<li>1に戻る</li>
+						</ol>
+					</section>
+					<section>
+						<h2>論理式が真である間、処理1を実行し続ける</h2>
+						<h2>break, continueももちろん使える</h2>
+					</section>
+					<section>
+						<h2>while文では条件次第では1度も処理が行われないことも</h2>
+						<h2>それでは困るときはどうするのか？</h2>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>do-while文</h2>
+					</section>
+					<section>
+						<h2>構文</h2>
+						<pre><code>
+						do{
+							処理1;
+						}while(論理式);
+						</code></pre>
+					</section>
+					<section>
+						<h2>処理の流れ</h2>
+						<ol>
+							<li>処理1を実行する</li>
+							<li>論理式を評価する</li>
+							<ul><li>偽であればループを抜ける</li></ul>							
+							<li>1に戻る</li>
+						</ol>
+					</section>
+					<section>
+						<h2>処理と評価の順序が逆になっただけ</h2>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>switch文</h2>
+					</section>
+					<section>
+						<h2>構文</h2>
+						<pre><code>
+						switch(変数i){
+						case A:
+							i == Aの時に行う処理
+							break;
+						case B:
+							i == Bの時に行う処理
+							break;
+						case C:
+							i == Cの時に行う処理
+							break;
+						.
+						.
+						default:
+							上のどれにもiが当てはまらない時に行う処理
+						}
+						</code></pre>
+					</section>
+					<section>
+						<h2>switch文は以下の式と同等である</h2>
+						<pre><code>
+						if(i == A){
+							i == Aの時に行う処理
+						}else if(i == B){
+							i == Bの時に行う処理
+						}else if(i == C){
+							i == Cの時に行う処理
+						}
+						.
+						.
+						}else{
+							上のどれにもiが当てはまらない時に行う処理
+						}
+						</code></pre>
+						<h2>defaultはなくてもよい</h2>
+					</section>
+					<section>
+						<h2>ここでA,B,C...は整数値しか取れないことに注意</h2>
+						<h2>つまり</h2>
+						<pre><code>
+						switch(i){
+						case 1.2:
+							hogehoge;
+						}
+						</code></pre>
+						<h2>はコンパイルエラーとなる</h2>
+					</section>
+					<section>
+						<h2>注意点</h2>
+						<h2>breakが無いとどうなるのか</h2>
+						<pre><code>
+						if(i == A){
+							i == Aの時に行う処理
+							i == Bの時に行う処理
+							i == Cの時に行う処理
+							.
+							.
+							上のどれにもiが当てはまらない時に行う処理
+						}
+						</code></pre>
+					</section>
+					<section>
+						<h2>この動作をフォールスルー(Fall Through)と呼ぶ</h2>
+						<h2>意図して行うのならいいのだが、気付かずに行うと面倒なバグの原因となるので注意</h2>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h1>変数のスコープ</h1>
+					</section>
+					<section>
+						<h2>変数はどこで宣言しても使えるわけではない</h2>
+					</section>
+					<section>
+						<h2>例えば</h2>
+						<pre><code>
+						int i = 0;
+						if(i == 0){
+							int i = 5;
+							printf("%d\n", i);
+						}
+						printf("%d\n", i);
+						</code></pre>
+						<h2>実行結果</h2>
+						<pre>
+						5
+						0
+						</pre>
+					</section>
+					<section>
+						<h2>なぜなのか</h2>
+						<h2>&gt; 変数のスコープ</h2>
+					</section>
+					<section>
+						<h2>ではスコープとは</h2>
+					</section>
+					<section>
+						<h2>簡単にいえば変数の有効範囲</h2>
+					</section>
+					<section>
+						<h2>C言語では有効範囲(スコープ)が狭いほうが優先されるので、<br>上のような結果となる</h2>
+					</section>
+					<section>
+						<h2>じゃあ一番広いスコープは？</h2>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>グローバル変数</h2>
+						<pre><code>
+						#include <stdio.h>
+						int i = 0;
+						int main(){
+							printf("%d", i);
+						}
+						</code></pre>
+						<h2>実行結果</h2>
+						<pre>
+						0
+						</pre>
+					</section>
+					<section>
+						<h2>グローバル変数はその名の通りプログラム中のどこからでも呼び出すことができる</h2>
+					</section>
+					<section>
+						<h2>便利そうだけど罠もたくさんあるのであまり推奨はされない</h2>
+						<h2>(特に複数ファイルを扱うときなど)</h2>
+					</section>
+				</section>
+				<section>
+					<h1>演習</h1>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
